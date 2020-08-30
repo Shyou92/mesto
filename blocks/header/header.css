@@ -1,5 +1,5 @@
 .header {
-  margin: 45px auto 0;
+  margin: 0 auto;
   max-width: 882px;
   padding-bottom: 41px;
 }
@@ -18,7 +18,6 @@
 
 @media screen and (min-width: 320px) and (max-width: 425px) {
   .header {
-    margin: 28px auto 0;
     max-width: 320px;
     padding-bottom: 31px;
   }

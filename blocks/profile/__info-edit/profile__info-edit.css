@@ -8,7 +8,9 @@
 }
 
 .profile__info-edit:hover {
-  cursor: pointer;  
+  cursor: pointer;
+  opacity: .6;
+  transition: 1s;  
 }
 
 @media screen and (max-width: 1024px) {

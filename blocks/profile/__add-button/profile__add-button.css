@@ -11,7 +11,8 @@
 }
 
 .profile__add-button:hover {
-  border-color: rgba(255, 255, 255, .6);
+  opacity: .6;
+  transition: 1s; 
   cursor: pointer;  
 }
 

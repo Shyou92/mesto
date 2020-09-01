@@ -6,4 +6,6 @@
 
 .popup__close:hover {
   cursor: pointer;
+  transition: 1s;
+  opacity: 0.6;
 }

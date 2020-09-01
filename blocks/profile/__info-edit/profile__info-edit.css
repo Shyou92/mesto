@@ -1,6 +1,8 @@
 .profile__info-edit {
   width: 24px;
   height: 24px;
+  margin: 0 0 0 17px;
+  padding: 0;
   background: url(../../../images/Edit\ Button.svg);
   border: none;
   align-self: center;
@@ -29,5 +31,6 @@
   .profile__info-edit {
     width: 18px;
     height: 18px;
+    margin: 0 0 0 6px;
   }
 }

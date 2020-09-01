@@ -12,6 +12,6 @@
 @media screen and (min-width: 320px) and (max-width: 425px) {
   .popup__container-heading {
     max-width: 185px;
-    margin: 24px 0 33px 26px;
+    margin: 24px 0 33px 45px;
   }
 }

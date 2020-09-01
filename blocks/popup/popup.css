@@ -5,14 +5,7 @@
   height: 100%;
   top: 0;
   left: 0;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
-}
-
-@media screen and (min-width: 320px) and (max-width: 425px) {
-  .popup {
-    width: 73%;
-    height: 75%;
-  }
 }

@@ -1,4 +1,4 @@
-.popup__form-input {
+.popup__input {
   width: 358px;
   height: 27px;
   border: none;
@@ -12,16 +12,16 @@
   color: #000000;
 }
 
-.popup__form-input:focus {
+.popup__input:focus {
   outline: none;
 }
 
-.popup__form-input:nth-last-of-type(1) {
+.popup__input:nth-last-of-type(1) {
   margin-bottom: 0;
 }
 
 @media screen and (min-width: 320px) and (max-width: 425px) {
-  .popup__form-input {
+  .popup__input {
     max-width: 222px;
     margin-bottom: 20px;
   }

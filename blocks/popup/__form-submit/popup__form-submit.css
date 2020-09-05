@@ -6,19 +6,18 @@
   background-color: #000;
   border: none;
   border-radius: 2px;
-  font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
   line-height: 22px;
   text-align: center;
   color: #FFFFFF;
+  cursor: pointer;
 }
 
 .popup__form-submit:hover {
   background: rgba(0, 0, 0, 0.8);
   transition: 1s;
-  cursor: pointer;
 }
 
 @media screen and (min-width: 320px) and (max-width: 425px) {

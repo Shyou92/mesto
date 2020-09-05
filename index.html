@@ -18,7 +18,7 @@
       <img src="./images/Avatar.svg" class="profile__image" alt="Жак-Ив-Кусто">
       <div class="profile__info">
         <div class="profile__info-container">
-          <p class="profile__info-name">Жак-Ив-Кусто</p>
+          <h2 class="profile__info-name">Жак-Ив-Кусто</h2>
           <button class="profile__info-edit js-open__info-edit"></button>
         </div>
         <p class="profile__info-job">Исследователь океана</p>
@@ -30,42 +30,42 @@
       <div class="element">
         <img src="./images/Karachaevsk.png" alt="Вид на заброшенный храм в Карачаевске" class="element__photo">
         <div class="element__container">
-          <p class="element__text">Карачаевск</p>
+          <h2 class="element__heading">Карачаевск</h2>
           <button class="element__like"></button>
         </div>
       </div>
       <div class="element">
         <img src="./images/Elbrus.png" alt="Вид на Эльбрус на рассвете" class="element__photo">
         <div class="element__container">
-          <p class="element__text">Гора Эльбрус</p>
+          <h2 class="element__heading">Гора Эльбрус</h2>
           <button class="element__like"></button>
         </div>
       </div>
       <div class="element">
         <img src="./images/Dombai.png" alt="Вид на домбайкую горную территорию" class="element__photo">
         <div class="element__container">
-          <p class="element__text">Домбай</p>
+          <h2 class="element__heading">Домбай</h2>
           <button class="element__like"></button>
         </div>
       </div>
       <div class="element">
         <img src="./images/Elbrus.png" alt="Вид на Эльбрус на рассвете" class="element__photo">
         <div class="element__container">
-          <p class="element__text">Гора Эльбрус</p>
+          <h2 class="element__heading">Гора Эльбрус</h2>
           <button class="element__like"></button>
         </div>
       </div>
       <div class="element">
         <img src="./images/Dombai.png" alt="Вид на домбайкую горную территорию" class="element__photo">
         <div class="element__container">
-          <p class="element__text">Домбай</p>
+          <h2 class="element__heading">Домбай</h2>
           <button class="element__like"></button>
         </div>
       </div>
       <div class="element">
         <img src="./images/Karachaevsk.png" alt="Вид на заброшенный храм в Карачаевске" class="element__photo">
         <div class="element__container">
-          <p class="element__text element__text_overflow">Карачаево-Черкессия</p>
+          <h2 class="element__heading">Карачаево-Черкессия</h2>
           <button class="element__like"></button>
         </div>
       </div>
@@ -74,13 +74,12 @@
   </main>
 
   <footer class="footer">
-    <p class="footer__text">&copy; 2020 Mesto Russia</p>
+    <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
 
-  <section class="popup">
+  <div class="popup">
     <div class="popup__container">
-      <img src="./images/Close-icon.svg" alt="Крестик для закрытия всплывающего окна"
-        class="popup__close js-popup__close">
+      <button class="popup__close js-popup__close" type="button"></button>
       <h2 class="popup__container-heading">Редактировать профиль</h2>
       <form class="popup__form">
         <input type="text" class="popup__form-input js-popup__form-name" placeholder="Имя">
@@ -88,7 +87,7 @@
         <button class="popup__form-submit js-popup__submit">Сохранить</button>
       </form>
     </div>
-  </section>
+  </div>
 
   <script src="./index.js" defer></script>
 </body>

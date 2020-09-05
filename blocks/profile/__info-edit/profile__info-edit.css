@@ -7,10 +7,10 @@
   border: none;
   align-self: center;
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 .profile__info-edit:hover {
-  cursor: pointer;
   opacity: .6;
   transition: 1s;  
 }

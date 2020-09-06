@@ -8,6 +8,7 @@
   align-self: center;
   box-sizing: border-box;
   cursor: pointer;
+  background-size: contain;
 }
 
 .profile__info-edit:hover {
@@ -20,6 +21,5 @@
     width: 18px;
     height: 18px;
     margin: 0 0 0 6px;
-    background-size: contain;
   }
 }

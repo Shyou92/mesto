@@ -4,8 +4,9 @@
   border: none;
   background-image: url(../../../images/Like.svg);
   background-color: #fff;
+  cursor: pointer;
 }
 
-.element__like:hover {
-  cursor: pointer;
+.element__like:focus {
+  outline: none;
 }

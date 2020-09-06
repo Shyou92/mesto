@@ -4,8 +4,8 @@
   width: 41px;
   height: 41px;
   position: absolute;
-  margin-top: -40px;
-  margin-left: 430px;
+  top: -40px;
+  left: 430px;
   cursor: pointer;
   border: none;
 }

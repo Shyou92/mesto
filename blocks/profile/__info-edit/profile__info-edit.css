@@ -15,22 +15,11 @@
   transition: 1s;  
 }
 
-@media screen and (max-width: 1024px) {
-  .profile__info-edit {
-    max-width: 682px;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .profile__info-edit {
-    max-width: 482px;
-  }
-}
-
 @media screen and (min-width: 320px) and (max-width: 425px) {
   .profile__info-edit {
     width: 18px;
     height: 18px;
     margin: 0 0 0 6px;
+    background-size: contain;
   }
 }

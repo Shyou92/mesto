@@ -26,50 +26,7 @@
       <button class="profile__add-button"></button>
     </section>
 
-    <section class="elements">
-      <div class="element">
-        <img src="./images/Karachaevsk.png" alt="Вид на заброшенный храм в Карачаевске" class="element__photo">
-        <div class="element__container">
-          <p class="element__text">Карачаевск</p>
-          <button class="element__like"></button>
-        </div>
-      </div>
-      <div class="element">
-        <img src="./images/Elbrus.png" alt="Вид на Эльбрус на рассвете" class="element__photo">
-        <div class="element__container">
-          <p class="element__text">Гора Эльбрус</p>
-          <button class="element__like"></button>
-        </div>
-      </div>
-      <div class="element">
-        <img src="./images/Dombai.png" alt="Вид на домбайкую горную территорию" class="element__photo">
-        <div class="element__container">
-          <p class="element__text">Домбай</p>
-          <button class="element__like"></button>
-        </div>
-      </div>
-      <div class="element">
-        <img src="./images/Elbrus.png" alt="Вид на Эльбрус на рассвете" class="element__photo">
-        <div class="element__container">
-          <p class="element__text">Гора Эльбрус</p>
-          <button class="element__like"></button>
-        </div>
-      </div>
-      <div class="element">
-        <img src="./images/Dombai.png" alt="Вид на домбайкую горную территорию" class="element__photo">
-        <div class="element__container">
-          <p class="element__text">Домбай</p>
-          <button class="element__like"></button>
-        </div>
-      </div>
-      <div class="element">
-        <img src="./images/Karachaevsk.png" alt="Вид на заброшенный храм в Карачаевске" class="element__photo">
-        <div class="element__container">
-          <p class="element__text element__text_overflow">Карачаево-Черкессия</p>
-          <button class="element__like"></button>
-        </div>
-      </div>
-    </section>
+    <section class="elements"></section>
 
   </main>
 
@@ -89,6 +46,16 @@
       </form>
     </div>
   </section>
+
+  <template class="element-template">
+    <div class="element">
+      <img src="" alt='' class="element__photo">
+      <div class="element__container">
+        <p class="element__text element__text_overflow"></p>
+        <button class="element__like"></button>
+      </div>
+    </div>
+  </template>
 
   <script src="./index.js" defer></script>
 </body>

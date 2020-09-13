@@ -1,4 +1,9 @@
 .element {
   background-color: #fff;
   border-radius: 10px;
+  margin: 0;
+  padding: 0;
+  width: 282px;
+  height: 361px;
+  box-sizing: border-box;
 }

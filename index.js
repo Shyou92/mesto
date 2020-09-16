@@ -33,10 +33,11 @@ const initialCards = [
 
 const popup = document.querySelector('.popup');
 const popupOpen = document.querySelector('.profile__info-edit');
-const popupClose = document.querySelector('.popup__close');
+const closeButtons = document.querySelectorAll('.popup__close');
 const formElement = document.querySelector('.popup__form');
 const popupSave = document.querySelector('.popup__submit');
 const cardElements = document.querySelector('.elements');
+const addButton = document.querySelector('.profile__add-button')
 let nameInput = formElement.querySelector('.popup__input_name');
 let jobInput = formElement.querySelector('.popup__input_job');
 let profileName = document.querySelector('.profile__info-name');
@@ -56,25 +57,39 @@ function render() {
 
 render();
 
-const popupOpened = function () {
-  popup.classList.add('popup_is-opened');
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
+const popupOpened = function (e) {
+
+  if (e.target === popupOpen) {
+    document.getElementById('js-edit').classList.add('popup_is-opened');
+    nameInput.value = profileName.textContent;
+    jobInput.value = profileJob.textContent;
+  } else if (e.target === addButton) {
+    document.getElementById('js-create').classList.add('popup_is-opened');
+  }
 }
 
-const popupClosed = function () {
-  popup.classList.remove('popup_is-opened')
+
+
+const closePopup = (e) => {
+  let popupElement = e.target.closest('.popup');
+
+  if (!popupElement) return;
+
+  popupElement.classList.remove('popup_is-opened')
 }
 
-const formSubmitHandler = function (event) {
+const formSubmitHandler = function (e) {
 
-  event.preventDefault();
+  e.preventDefault();
 
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
 }
 
+addButton.addEventListener('click', popupOpened);
 popupOpen.addEventListener('click', popupOpened);
-popupClose.addEventListener('click', popupClosed);
+closeButtons.forEach(function (item) {
+  item.addEventListener('click', closePopup)
+})
 formElement.addEventListener('submit', formSubmitHandler);
-popupSave.addEventListener('click', popupClosed);
+popupSave.addEventListener('click', closePopup);

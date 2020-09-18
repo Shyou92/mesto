@@ -48,9 +48,9 @@
     <div class="popup__container">
       <button class="popup__close" type="button"></button>
       <h3 class="popup__title">Новое место</h3>
-      <form class="popup__form">
+      <form class="popup__form" id="form-create">
         <input type="text" class="popup__input popup__input_title" name="title" placeholder="Название">
-        <input type="text" class="popup__input popup__input_image" name="image" placeholder="Ссылка на картинку">
+        <input type="text" class="popup__input popup__input_link" name="image" placeholder="Ссылка на картинку">
         <button class="popup__submit" type="submit">Создать</button>
       </form>
     </div>
@@ -61,7 +61,7 @@
       <img src="" alt="" class="element__photo">
       <div class="element__container">
         <h2 class="element__heading"></h2>
-        <button class="element__like"></button>
+        <button class="element__like" type="button"></button>
       </div>
   </template>
 

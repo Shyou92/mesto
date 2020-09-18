@@ -2,32 +2,26 @@ const initialCards = [
   {
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-    alt: 'Горы Архыза'
   },
   {
     name: 'Челябинская область',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
-    alt: 'Озеро в Челябинской области'
   },
   {
     name: 'Иваново',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-    alt: 'Дома в Иваново'
   },
   {
     name: 'Камчатка',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-    alt: 'Гора на Камчатке'
   },
   {
     name: 'Холмогорский район',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-    alt: 'Железная дорога сквозь лес в Холмогорском районе'
   },
   {
     name: 'Байкал',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-    alt: 'Скалы на Байкале'
   }
 ];
 
@@ -37,28 +31,50 @@ const closeButtons = document.querySelectorAll('.popup__close');
 const formElement = document.querySelector('.popup__form');
 const popupSave = document.querySelector('.popup__submit');
 const cardElements = document.querySelector('.elements');
+const elementTemplate = document.querySelector('.element-template').content;
 const addButton = document.querySelector('.profile__add-button')
+const formCreate = document.querySelector('#form-create');
+const likeButtons = document.querySelectorAll('.element__like')
 let nameInput = formElement.querySelector('.popup__input_name');
 let jobInput = formElement.querySelector('.popup__input_job');
 let profileName = document.querySelector('.profile__info-name');
 let profileJob = document.querySelector('.profile__info-job');
 
-function render() {
-  for (let i = 0; i < initialCards.length; i++) {
-    const elementTemplate = document.querySelector('.element-template').content;
-    const templateClone = elementTemplate.cloneNode(true);
 
-    templateClone.querySelector('.element__photo').src = initialCards[i].link;
-    templateClone.querySelector('.element__heading').textContent = initialCards[i].name;
-    templateClone.querySelector('.element__photo').alt = initialCards[i].alt;
-    cardElements.append(templateClone);
-  }
+const addCard = function (card) {
+  const cardName = card.name;
+  const cardLink = card.link;
+  const templateClone = elementTemplate.cloneNode(true);
+  templateClone.querySelector('.element__photo').src = cardLink;
+  templateClone.querySelector('.element__heading').textContent = cardName;
+  templateClone.querySelector('.element__like').addEventListener('click', (e) => {
+    e.target.classList.toggle('element__like_state_active');
+  })
+  cardElements.append(templateClone);
 }
 
-render();
+const renderCards = function () {
+  initialCards.forEach(addCard)
+}
+
+renderCards();
+
+const createCard = function (e) {
+  e.preventDefault();
+
+  const cardTitle = document.querySelector('.popup__input_title').value;
+  const cardImage = document.querySelector('.popup__input_link').value;
+
+  const initializeCard = {
+    name: cardTitle,
+    link: cardImage,
+  }
+  addCard(initializeCard);
+  formCreate.reset();
+  closePopup(e);
+}
 
 const popupOpened = function (e) {
-
   if (e.target === popupOpen) {
     document.getElementById('js-edit').classList.add('popup_is-opened');
     nameInput.value = profileName.textContent;
@@ -68,18 +84,15 @@ const popupOpened = function (e) {
   }
 }
 
-
-
 const closePopup = (e) => {
   let popupElement = e.target.closest('.popup');
 
-  if (!popupElement) return;
+  if (!popupElement) { return };
 
   popupElement.classList.remove('popup_is-opened')
 }
 
 const formSubmitHandler = function (e) {
-
   e.preventDefault();
 
   profileName.textContent = nameInput.value;
@@ -90,6 +103,7 @@ addButton.addEventListener('click', popupOpened);
 popupOpen.addEventListener('click', popupOpened);
 closeButtons.forEach(function (item) {
   item.addEventListener('click', closePopup)
-})
+});
 formElement.addEventListener('submit', formSubmitHandler);
 popupSave.addEventListener('click', closePopup);
+formCreate.addEventListener('submit', createCard);

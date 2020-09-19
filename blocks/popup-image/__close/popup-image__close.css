@@ -11,3 +11,12 @@
   border: none;
   outline: none;
 }
+
+@media screen and (max-width: 575px) {
+  .popup-image__close {
+    width: 30px;
+    height: 30px;
+    top: -32px;
+    right: -32px;
+  }
+}

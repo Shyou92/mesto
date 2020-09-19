@@ -1,6 +1,7 @@
 .element__delete {
   background: url(../../../images/Trash.svg);
   background-repeat: no-repeat;
+  background-size: contain;
   width: 20px;
   height: 21px;
   position: absolute;

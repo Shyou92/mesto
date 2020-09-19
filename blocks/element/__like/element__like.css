@@ -5,9 +5,10 @@
   background-image: url(../../../images/Like.svg);
   background-color: #fff;
   cursor: pointer;
-}
-
-.element__like:focus {
   outline: none;
 }
 
+.element__like:hover {
+  opacity: 0.6;
+  transition: 1s;
+}

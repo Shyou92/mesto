@@ -20,3 +20,11 @@
     right: -32px;
   }
 }
+
+@media screen and (max-width: 450px) {
+  .popup-image__close {
+    background-size: contain;
+    top: -25px;
+    right: -25px;
+  }
+}

@@ -57,6 +57,7 @@ const popupOpened = function (e) {
   } else if (e.target === addButton) {
     document.getElementById('js-create').classList.add('popup_is-opened');
   } else {
+    popupImageHeading.textContent = '';
     popupImage.classList.add('popup-image_is-opened');
     let imageOpened = e.target.src;
     let imagePopup = e.target.closest('.element');
@@ -122,7 +123,6 @@ const closePopupImage = function (e) {
   if (!popupImageElem) { return };
 
   popupImageElem.classList.remove('popup-image_is-opened');
-  popupImageHeading.textContent = '';
 }
 
 const formSubmitHandler = function (e) {

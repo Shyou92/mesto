@@ -33,34 +33,35 @@
   </footer>
 
   <div class="popup" id="js-edit">
-    <div class="popup__container">
+    <div class="popup__container popup__container_content_text">
       <button class="popup__close" type="button"></button>
       <h3 class="popup__title">Редактировать профиль</h3>
       <form class="popup__form">
-        <input type="text" class="popup__input popup__input_name" name="name" placeholder="Имя">
-        <input type="text" class="popup__input popup__input_job" name="job" placeholder="Профессия">
+        <input type="text" required class="popup__input popup__input_name" name="name" placeholder="Имя">
+        <input type="text" required class="popup__input popup__input_job" name="job" placeholder="Профессия">
         <button class="popup__submit" type="submit">Сохранить</button>
       </form>
     </div>
   </div>
 
   <div class="popup" id="js-create">
-    <div class="popup__container">
+    <div class="popup__container popup__container_content_text">
       <button class="popup__close" type="button"></button>
       <h3 class="popup__title">Новое место</h3>
       <form class="popup__form" id="form-create">
-        <input type="text" class="popup__input popup__input_title" name="title" placeholder="Название">
-        <input type="text" class="popup__input popup__input_link" name="image" placeholder="Ссылка на картинку">
+        <input type="text" required class="popup__input popup__input_title" name="title" placeholder="Название">
+        <input type="text" required class="popup__input popup__input_link" name="image"
+          placeholder="Ссылка на картинку">
         <button class="popup__submit" type="submit">Создать</button>
       </form>
     </div>
   </div>
 
-  <div class="popup-image">
-    <div class="popup-image__container">
-      <img src="" alt="" class="popup-image__image">
-      <h3 class="popup-image__heading"></h3>
-      <button class="popup-image__close" type="button"></button>
+  <div class="popup" id="js-image">
+    <div class="popup__container popup__container_content_image">
+      <img src="" alt="" class="popup__image">
+      <h3 class="popup__title popup__title_content-heading" id='js__title'></h3>
+      <button class="popup__close popup__close_content_image" type="button"></button>
     </div>
   </div>
 

@@ -10,7 +10,7 @@
   align-items: center;
   visibility: hidden;
   opacity: 0;
-  transition-property: visibility, opacity 1;
+  transition-property: visibility, opacity;
   transition-duration: 0.3s;
   transition-timing-function: linear;
 }

@@ -44,7 +44,7 @@ const fillingCard = function (e) {
   popupTitle.append(imageTextContent);
 }
 
-function imageClickHandler(e) {
+const imageClickHandler = function (e) {
   fillingCard(e);
   popupOpened(popupImage);
 }

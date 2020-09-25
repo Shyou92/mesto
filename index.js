@@ -25,7 +25,7 @@ const deleteCard = function (e) {
   deleteCard.remove();
 }
 
-const OpenPopup = function (popup) {
+const openPopup = function (popup) {
   popup.classList.add('popup_is-opened');
 };
 
@@ -46,7 +46,7 @@ const fillingCard = function (e) {
 
 const imageClickHandler = function (e) {
   fillingCard(e);
-  OpenPopup(popupImage);
+  openPopup(popupImage);
 }
 
 const likeCard = function (e) {
@@ -103,11 +103,11 @@ const formSubmitHandler = function (e) {
 }
 
 addButton.addEventListener('click', () => {
-  OpenPopup(popupCreate);
+  openPopup(popupCreate);
 });
 popupOpen.addEventListener('click', () => {
   fillingText();
-  OpenPopup(popupEdit);
+  openPopup(popupEdit);
 });
 closeButtons.forEach(function (item) {
   item.addEventListener('click', closePopup)

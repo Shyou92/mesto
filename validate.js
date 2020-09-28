@@ -1,5 +1,21 @@
+const setEventlisteners = (formElement) => {
+  const inputList = Array.from(inputSelector);
+
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener('input', () => {
+      console.log('1');
+    })
+  })
+}
+
 const enableValidation = ({ formSelector }) => {
-  console.log(formSelector);
+  const formList = Array.from(formSelector);
+
+  formList.forEach((formElement) => {
+    formElement.addEventListener('submit', (e) => {
+      e.preventDefault();
+    });
+  })
 }
 enableValidation({
   formSelector: '.popup__form',

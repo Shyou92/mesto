@@ -20,6 +20,10 @@
   margin-bottom: 0;
 }
 
+.popup__input:not(:focus):invalid {
+  border-bottom: 1px solid #FF0000;
+}
+
 @media screen and (min-width: 425px) and (max-width: 510px) {
   .popup__input {
     max-width: 232px;

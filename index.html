@@ -37,11 +37,16 @@
       <button class="popup__close" type="button"></button>
       <h3 class="popup__title">Редактировать профиль</h3>
       <form class="popup__form" novalidate>
-        <input type="text" required class="popup__input popup__input_name" minlength="2" maxlength="40" name="name"
-          placeholder="Имя">
-        <input type="text" required class="popup__input popup__input_job" minlength="2" maxlength="200" name="job"
-          placeholder="Профессия">
-        <span class="popup__input_type_error"></span>
+        <section class="popup__form-section">
+          <input type="text" required class="popup__input popup__input_name" id="edit-name-popup" minlength="2"
+            maxlength="40" name="name" placeholder="Имя">
+          <span class="popup__input_type_error" id="edit-name-popup-error">dasd</span>
+        </section>
+        <section class="popup__form-section">
+          <input type="text" required class="popup__input popup__input_job" id="edit-job-popup" minlength="2"
+            maxlength="200" name="job" placeholder="Профессия">
+          <span class="popup__input_type_error" id="edit-job-popup-error">dada</span>
+        </section>
         <button class="popup__submit" type="submit">Сохранить</button>
       </form>
     </div>
@@ -52,10 +57,16 @@
       <button class="popup__close" type="button"></button>
       <h3 class="popup__title">Новое место</h3>
       <form class="popup__form" id="form-create" novalidate>
-        <input type="text" required class="popup__input popup__input_title" name="title" placeholder="Название">
-        <input type="text" required class="popup__input popup__input_link" name="image"
-          placeholder="Ссылка на картинку">
-        <span class="popup__input_type_error"></span>
+        <section class="popup__form-section">
+          <input type="text" required class="popup__input popup__input_title" id="create-title-popup" name="title"
+            placeholder="Название">
+          <span class="popup__input_type_error" id="create-title-popup-error">dsda</span>
+        </section>
+        <section class="popup__form-section">
+          <input type="text" required class="popup__input popup__input_link" id="create-link-popup" name="image"
+            placeholder="Ссылка на картинку">
+          <span class="popup__input_type_error" id="create-link-popup-error">sdd</span>
+        </section>
         <button class="popup__submit" type="submit">Создать</button>
       </form>
     </div>

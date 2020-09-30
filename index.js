@@ -19,6 +19,8 @@ const profileName = document.querySelector('.profile__info-name');
 const profileJob = document.querySelector('.profile__info-job');
 const popupImageOpened = document.querySelector('.popup__image');
 const popupTitle = document.querySelector('#js__title');
+const popupErrors = Array.from(document.querySelectorAll('.popup__input_error'));
+const popupInputs = Array.from(document.querySelectorAll('.popup__input'));
 
 const deleteCard = function (e) {
   const deleteCard = e.target.closest('.element');
@@ -93,6 +95,14 @@ const closePopup = (e) => {
   if (!popupElement) { return };
 
   popupElement.classList.remove('popup_is-opened');
+
+  popupErrors.forEach((popupError) => {
+    popupError.textContent = '';
+  })
+
+  popupInputs.forEach((popupInput) => {
+    popupInput.classList.remove('popup__input_invalid');
+  })
 }
 
 const formSubmitHandler = function (e) {

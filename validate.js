@@ -28,7 +28,6 @@ const checkInputValidity = (formElement, inputItem) => {
 
 const toggleButtonState = function (inputList, buttonElements) {
   const hasValidInput = inputList.some((inputElement) => !inputElement.validity.valid);
-  console.log(hasValidInput);
 
   if (hasValidInput) {
     buttonElements.forEach((buttonElement) => {

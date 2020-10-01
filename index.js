@@ -21,6 +21,7 @@ const popupImageOpened = document.querySelector('.popup__image');
 const popupTitle = document.querySelector('#js__title');
 const popupErrors = Array.from(document.querySelectorAll('.popup__input_error'));
 const popupInputs = Array.from(document.querySelectorAll('.popup__input'));
+const popups = Array.from(document.querySelectorAll('.popup'));
 
 const deleteCard = function (e) {
   const deleteCard = e.target.closest('.element');
@@ -89,20 +90,48 @@ const createCard = function (e) {
   closePopup(e);
 }
 
+const closePopupByEsc = function (e) {
+  popups.forEach((popupElement) => {
+    if (e.key === 'Escape') {
+      popupElement.classList.remove('popup_is-opened');
+    }
+  })
+
+}
+
+const closeByClickOnOverlay = function (e) {
+  popups.forEach((popupElement) => {
+    console.log({
+      target: e.target,
+      current: e.currentTarget
+    });
+    if (e.target !== e.currentTarget) {
+      return
+    }
+    popupElement.classList.remove('popup_is-opened');
+  })
+}
+
 const closePopup = (e) => {
-  let popupElement = e.target.closest('.popup');
+  const popupElement = e.target.closest('.popup');
+  const hasValidInput = popupInputs.some((inputElement) => !inputElement.validity.valid);
 
   if (!popupElement) { return };
 
   popupElement.classList.remove('popup_is-opened');
 
-  popupErrors.forEach((popupError) => {
-    popupError.textContent = '';
-  })
+  if (hasValidInput) {
+    popupErrors.forEach((popupError) => {
+      popupError.textContent = '';
+    })
+  }
 
   popupInputs.forEach((popupInput) => {
     popupInput.classList.remove('popup__input_invalid');
   })
+
+  popupSave.classList.remove('popup__input_error_active');
+  popupSave.disabled = false;
 }
 
 const formSubmitHandler = function (e) {
@@ -125,3 +154,7 @@ closeButtons.forEach(function (item) {
 formElement.addEventListener('submit', formSubmitHandler);
 popupSave.addEventListener('click', closePopup);
 formCreate.addEventListener('submit', createCard);
+document.addEventListener('keydown', closePopupByEsc);
+popups.forEach((popupElement) => {
+  popupElement.addEventListener('click', closeByClickOnOverlay)
+})

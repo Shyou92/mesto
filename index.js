@@ -101,10 +101,6 @@ const closePopupByEsc = function (e) {
 
 const closeByClickOnOverlay = function (e) {
   popups.forEach((popupElement) => {
-    console.log({
-      target: e.target,
-      current: e.currentTarget
-    });
     if (e.target !== e.currentTarget) {
       return
     }

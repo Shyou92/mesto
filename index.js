@@ -22,6 +22,7 @@ const popupTitle = document.querySelector('#js__title');
 const popupErrors = Array.from(document.querySelectorAll('.popup__input_error'));
 const popupInputs = Array.from(document.querySelectorAll('.popup__input'));
 const popups = Array.from(document.querySelectorAll('.popup'));
+const submitInCreateForm = document.querySelector('#js-submit-disabled');
 
 const deleteCard = function (e) {
   const deleteCard = e.target.closest('.element');
@@ -87,6 +88,11 @@ const createCard = function (e) {
 
   cardElements.prepend(getCardElement(initializeCard));
   formCreate.reset();
+  popupInputs.forEach((popupInput) => {
+    if (popupInput.value == '') {
+      submitInCreateForm.classList.add('popup__submit_inactive')
+    }
+  })
   closePopup(e);
 }
 

@@ -24,7 +24,7 @@ const popupInputs = Array.from(document.querySelectorAll('.popup__input'));
 const popups = Array.from(document.querySelectorAll('.popup'));
 const popupSaveElems = Array.from(document.querySelectorAll('.popup__submit'))
 const submitInCreateForm = document.querySelector('#js-submit-disabled');
-console.log(popupSaveElems);
+
 const deleteCard = function (e) {
   const deleteCard = e.target.closest('.element');
   deleteCard.remove();
@@ -33,7 +33,6 @@ const deleteCard = function (e) {
 const openPopup = function (popup) {
   popup.classList.add('popup_is-opened');
   document.addEventListener('keydown', closePopupByEsc)
-
 }
 
 const fillingText = function () {

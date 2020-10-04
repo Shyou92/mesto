@@ -22,8 +22,9 @@ const popupTitle = document.querySelector('#js__title');
 const popupErrors = Array.from(document.querySelectorAll('.popup__input_error'));
 const popupInputs = Array.from(document.querySelectorAll('.popup__input'));
 const popups = Array.from(document.querySelectorAll('.popup'));
+const popupSaveElems = Array.from(document.querySelectorAll('.popup__submit'))
 const submitInCreateForm = document.querySelector('#js-submit-disabled');
-
+console.log(popupSaveElems);
 const deleteCard = function (e) {
   const deleteCard = e.target.closest('.element');
   deleteCard.remove();
@@ -32,17 +33,7 @@ const deleteCard = function (e) {
 const openPopup = function (popup) {
   popup.classList.add('popup_is-opened');
   document.addEventListener('keydown', closePopupByEsc)
-  closeButtons.forEach(function (item) {
-    item.addEventListener('click', () => {
-      popups.forEach((popup) => {
-        closePopup(popup)
-      })
-    })
-  });
-  popupSave.addEventListener('click', () => { closePopup(popup) });
-  popups.forEach((popupElement) => {
-    popupElement.addEventListener('click', closeByClickOnOverlay)
-  })
+
 }
 
 const fillingText = function () {
@@ -113,19 +104,6 @@ const closePopup = function (popup) {
 
   popup.classList.remove('popup_is-opened');
   document.removeEventListener('keydown', closePopupByEsc)
-  closeButtons.forEach(function (item) {
-    item.removeEventListener('click', () => {
-      popups.forEach((popup) => {
-        closePopup(popup)
-      })
-    })
-  });
-
-  popups.forEach((popupElement) => {
-    popupElement.removeEventListener('click', closeByClickOnOverlay)
-  })
-
-  popupSave.removeEventListener('click', () => { closePopup(popup) });
 
   if (hasValidInput) {
     popupErrors.forEach((popupError) => {
@@ -175,3 +153,20 @@ popupOpen.addEventListener('click', () => {
 });
 formElement.addEventListener('submit', formSubmitHandler);
 formCreate.addEventListener('submit', createCard);
+closeButtons.forEach(function (item) {
+  item.addEventListener('click', () => {
+    popups.forEach((popup) => {
+      closePopup(popup)
+    })
+  })
+});
+popupSaveElems.forEach((item) => {
+  item.addEventListener('click', () => {
+    popups.forEach((popup) => {
+      closePopup(popup)
+    });
+  })
+})
+popups.forEach((popupElement) => {
+  popupElement.addEventListener('click', closeByClickOnOverlay)
+})

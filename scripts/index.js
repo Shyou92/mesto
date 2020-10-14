@@ -1,3 +1,6 @@
+import { Card } from './card.js';
+export { imageClickHandler, likeCard, deleteCard }
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -51,6 +54,7 @@ const popups = Array.from(document.querySelectorAll('.popup'));
 const popupSaveElems = Array.from(document.querySelectorAll('.popup__submit'))
 const submitInCreateForm = document.querySelector('#js-submit-disabled');
 
+
 const deleteCard = function (e) {
   const deleteCard = e.target.closest('.element');
   deleteCard.remove();
@@ -84,27 +88,6 @@ const imageClickHandler = function (e) {
 const likeCard = function (e) {
   e.target.classList.toggle('element__like_state_active');
 }
-
-const getCardElement = function (card) {
-  const cardName = card.name;
-  const cardLink = card.link;
-  const templateClone = elementTemplate.cloneNode(true);
-  templateClone.querySelector('.element__photo').src = cardLink;
-  templateClone.querySelector('.element__heading').textContent = cardName;
-  templateClone.querySelector('.element__like').addEventListener('click', likeCard);
-  templateClone.querySelector('.element__delete').addEventListener('click', deleteCard);
-  templateClone.querySelector('.element__photo').addEventListener('click', imageClickHandler);
-  return templateClone;
-}
-
-const renderCards = function (item) {
-  const cardElem = getCardElement(item);
-  cardElements.append(cardElem);
-}
-
-initialCards.forEach((item) => {
-  renderCards(item)
-});
 
 const createCard = function (e) {
   e.preventDefault();
@@ -269,4 +252,11 @@ popupSaveElems.forEach((item) => {
 })
 popups.forEach((popupElement) => {
   popupElement.addEventListener('click', closeByClickOnOverlay)
+})
+
+initialCards.forEach((item) => {
+  const card = new Card(item, '.element-template');
+  const cardElement = card.generateCard();
+
+  document.querySelector('.elements').append(cardElement);
 })

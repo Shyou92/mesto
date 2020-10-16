@@ -1,5 +1,6 @@
 import { Card } from './card.js';
-export { imageClickHandler, likeCard, deleteCard }
+import { FormValidator } from './formValidator.js'
+export { openPopup, popupImage, popupImageOpened, popupTitle, closePopup, config }
 
 const initialCards = [
   {
@@ -27,8 +28,6 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
   }
 ];
-
-
 const popupEdit = document.querySelector('#js-edit');
 const popupCreate = document.querySelector('#js-create');
 const popupImage = document.querySelector('#js-image');
@@ -37,7 +36,6 @@ const closeButtons = document.querySelectorAll('.popup__close');
 const formElement = document.querySelector('.popup__form');
 const popupSave = document.querySelector('.popup__submit');
 const cardElements = document.querySelector('.elements');
-const elementTemplate = document.querySelector('.element-template').content;
 const addButton = document.querySelector('.profile__add-button');
 const formCreate = document.querySelector('#form-create');
 const cardTitle = document.querySelector('.popup__input_title');
@@ -53,11 +51,16 @@ const popupInputs = Array.from(document.querySelectorAll('.popup__input'));
 const popups = Array.from(document.querySelectorAll('.popup'));
 const popupSaveElems = Array.from(document.querySelectorAll('.popup__submit'))
 const submitInCreateForm = document.querySelector('#js-submit-disabled');
-
-
-const deleteCard = function (e) {
-  const deleteCard = e.target.closest('.element');
-  deleteCard.remove();
+const config = {
+  formSelector: '.popup__form',
+  formEdit: '#js-edit',
+  formCreate: '#js-create',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit',
+  inactiveButtonClass: 'popup__submit_inactive',
+  inputErrorClass: 'popup__input_error',
+  inputInvalid: 'popup__input_invalid',
+  errorClass: 'popup__input_error_active'
 }
 
 const openPopup = function (popup) {
@@ -70,25 +73,6 @@ const fillingText = function () {
   jobInput.value = profileJob.textContent;
 }
 
-const fillingCard = function (e) {
-  popupTitle.textContent = '';
-  const imageOpened = e.target.src;
-  const imagePopup = e.target.closest('.element');
-  const imageText = imagePopup.querySelector('.element__heading');
-  const imageTextContent = imageText.textContent;
-  popupImageOpened.src = imageOpened;
-  popupTitle.append(imageTextContent);
-}
-
-const imageClickHandler = function (e) {
-  fillingCard(e);
-  openPopup(popupImage);
-}
-
-const likeCard = function (e) {
-  e.target.classList.toggle('element__like_state_active');
-}
-
 const createCard = function (e) {
   e.preventDefault();
 
@@ -97,7 +81,10 @@ const createCard = function (e) {
     link: cardImage.value,
   }
 
-  cardElements.prepend(getCardElement(initializeCard));
+  const card = new Card(initializeCard, '.element-template');
+  const cardElement = card.generateCard();
+
+  cardElements.prepend(cardElement);
   formCreate.reset();
   popupInputs.forEach((popupInput) => {
     if (popupInput.value == '') {
@@ -152,81 +139,6 @@ const formSubmitHandler = function (e) {
   profileJob.textContent = jobInput.value;
 }
 
-const showInputError = (formElement, inputItem, errorMessage, allClasses) => {
-  const errorElement = formElement.querySelector(`#${inputItem.id}-error`);
-  errorElement.textContent = errorMessage;
-
-  errorElement.classList.add(allClasses.errorClass);
-};
-
-const hideInputErrror = (formElement, inputItem, allClasses) => {
-  const errorElement = formElement.querySelector(`#${inputItem.id}-error`);
-  errorElement.textContent = '';
-
-  errorElement.classList.remove(allClasses.errorClass);
-};
-
-const checkInputValidity = (formElement, inputItem, allClasses) => {
-  const isInputNotValid = !inputItem.validity.valid;
-  if (isInputNotValid) {
-    const errorMessage = inputItem.validationMessage
-    inputItem.classList.add(allClasses.inputInvalid);
-    showInputError(formElement, inputItem, errorMessage, allClasses);
-  } else {
-    hideInputErrror(formElement, inputItem, allClasses);
-    inputItem.classList.remove(allClasses.inputInvalid);
-  }
-}
-
-const toggleButtonState = function (inputList, buttonElements, allClasses) {
-  const hasValidInput = inputList.some((inputElement) => !inputElement.validity.valid);
-
-  if (hasValidInput) {
-    buttonElements.forEach((buttonElement) => {
-      buttonElement.classList.add(allClasses.inactiveButtonClass);
-      buttonElement.setAttribute('disabled', true);
-    })
-  } else {
-    buttonElements.forEach((buttonElement) => {
-      buttonElement.classList.remove(allClasses.inactiveButtonClass);
-      buttonElement.removeAttribute('disabled');
-    })
-  }
-}
-
-const setEventListeners = (formElement, allClasses) => {
-  const inputList = Array.from(formElement.querySelectorAll(allClasses.inputSelector));
-  const buttonElements = Array.from(document.querySelectorAll(allClasses.submitButtonSelector));
-
-  inputList.forEach((inputItem) => {
-    inputItem.addEventListener('input', () => {
-      checkInputValidity(formElement, inputItem, allClasses)
-      toggleButtonState(inputList, buttonElements, allClasses)
-    })
-  })
-}
-
-const enableValidation = (allClasses) => {
-  const formList = Array.from(document.querySelectorAll(allClasses.formSelector));
-
-  formList.forEach((formElement) => {
-    formElement.addEventListener('submit', (e) => {
-      e.preventDefault()
-    })
-    setEventListeners(formElement, allClasses)
-  })
-}
-
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit',
-  inactiveButtonClass: 'popup__submit_inactive',
-  inputErrorClass: 'popup__input_error',
-  inputInvalid: 'popup__input_invalid',
-  errorClass: 'popup__input_error_active'
-});
-
 addButton.addEventListener('click', () => {
   openPopup(popupCreate);
 });
@@ -260,3 +172,9 @@ initialCards.forEach((item) => {
 
   document.querySelector('.elements').append(cardElement);
 })
+
+const formEditValidator = new FormValidator(config.formEdit, config);
+formEditValidator.enableValidation();
+
+const formCreateValidator = new FormValidator(config.formCreate, config);
+formCreateValidator.enableValidation();

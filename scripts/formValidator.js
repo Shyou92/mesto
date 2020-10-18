@@ -12,14 +12,12 @@ export class FormValidator {
   _showInputError(inputItem, errorMessage) {
     const errorElement = this._formElement.querySelector(`#${inputItem.id}-error`);
     errorElement.textContent = errorMessage;
-
     errorElement.classList.add(this._errorClass);
   };
 
   _hideInputError(inputItem) {
     const errorElement = this._formElement.querySelector(`#${inputItem.id}-error`);
     errorElement.textContent = '';
-
     errorElement.classList.remove(this._errorClass);
   };
 
@@ -51,6 +49,20 @@ export class FormValidator {
     }
   }
 
+  _hasValidInput(inputList) {
+    const hasValidInput = inputList.some((inputElement) => !inputElement.validity.valid);
+    return hasValidInput;
+  }
+
+  clearValidation() {
+    if (this._hasValidInput) {
+      document.querySelector(this._inputErrorClass).textContent = '';
+    }
+    document.querySelector(this._inputSelector).classList.remove('popup__input_invalid');
+    document.querySelector(this._submitButtonSelector).classList.remove('popup__input_error_active');
+    document.querySelector(this._submitButtonSelector).disabled = false;
+  }
+
   _setEventListeners() {
     const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
     const buttonElements = Array.from(this._formElement.querySelectorAll(this._submitButtonSelector));
@@ -62,6 +74,8 @@ export class FormValidator {
       })
     })
   }
+
+
 
   enableValidation() {
     this._formElement.addEventListener('submit', (e) => {

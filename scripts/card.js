@@ -1,4 +1,4 @@
-import { openPopup, popupImage, popupImageOpened, popupTitle, closePopup } from './index.js'
+import { openPopup, popupImage, popupImageOpened, popupTitle } from './index.js'
 
 export class Card {
   constructor(options, template) {
@@ -8,13 +8,7 @@ export class Card {
   }
 
   _getTemplate() {
-    const cardElem = document
-      .querySelector('.element-template')
-      .content
-      .querySelector('.element')
-      .cloneNode(true);
-
-    return cardElem
+    return document.querySelector(this._template).content.cloneNode(true).children[0];
   }
 
   generateCard() {
@@ -22,6 +16,7 @@ export class Card {
     this._setEventListeners();
 
     this._element.querySelector('.element__photo').src = this._link;
+    this._element.querySelector('.element__photo').alt = this._name;
     this._element.querySelector('.element__heading').textContent = this._name;
 
     return this._element
@@ -37,9 +32,6 @@ export class Card {
     this._element.querySelector('.element__photo').addEventListener('click', () => {
       this._handleOpenPopup();
     })
-    popupImage.querySelector('.popup__close').addEventListener('click', () => {
-      this._handleClosePopup();
-    })
   }
 
   _like() {
@@ -48,6 +40,7 @@ export class Card {
 
   _deleteCard() {
     this._element.remove();
+    this._element = null
   }
 
   _handleOpenPopup() {
@@ -57,9 +50,7 @@ export class Card {
     const cardTitle = this._element.querySelector('.element__heading');
     popupImageOpened.src = cardImage.src;
     popupTitle.textContent = cardTitle.textContent;
-  }
-
-  _handleClosePopup() {
-    closePopup(popupImage);
+    popupTitle.textContent = cardImage.alt;
   }
 }
+

@@ -34,7 +34,6 @@ const popupImage = document.querySelector('#js-image');
 const popupOpen = document.querySelector('.profile__info-edit');
 const closeButtons = document.querySelectorAll('.popup__close');
 const formElement = document.querySelector('.popup__form');
-const popupSave = document.querySelector('.popup__submit');
 const cardElements = document.querySelector('.elements');
 const addButton = document.querySelector('.profile__add-button');
 const formCreate = document.querySelector('#form-create');
@@ -46,7 +45,6 @@ const profileName = document.querySelector('.profile__info-name');
 const profileJob = document.querySelector('.profile__info-job');
 const popupImageOpened = document.querySelector('.popup__image');
 const popupTitle = document.querySelector('#js__title');
-const popupErrors = Array.from(document.querySelectorAll('.popup__input_error'));
 const popupInputs = Array.from(document.querySelectorAll('.popup__input'));
 const popups = Array.from(document.querySelectorAll('.popup'));
 const popupSaveElems = Array.from(document.querySelectorAll('.popup__submit'))
@@ -67,6 +65,8 @@ const config = {
 const openPopup = function (popup) {
   popup.classList.add('popup_is-opened');
   document.addEventListener('keydown', closePopupByEsc);
+  formCreateValidator.clearValidation();
+  formEditValidator.clearValidation();
 }
 
 const fillingText = function () {
@@ -89,30 +89,15 @@ const createCard = function (e) {
   formCreate.reset();
   popupInputs.forEach((popupInput) => {
     if (popupInput.value == '') {
-      submitInCreateForm.classList.add('popup__submit_inactive')
+      submitInCreateForm.classList.add('popup__submit_inactive');
     }
   })
   closePopup(popupCreate);
 }
 
 const closePopup = function (popup) {
-  // const hasValidInput = popupInputs.some((inputElement) => !inputElement.validity.valid);
-
   popup.classList.remove('popup_is-opened');
-  document.removeEventListener('keydown', closePopupByEsc)
-
-  // if (hasValidInput) {
-  //   popupErrors.forEach((popupError) => {
-  //     popupError.textContent = '';
-  //   })
-  // }
-
-  // popupInputs.forEach((popupInput) => {
-  //   popupInput.classList.remove('popup__input_invalid');
-  // })
-
-  // popupSave.classList.remove('popup__input_error_active');
-  // popupSave.disabled = false;
+  document.removeEventListener('keydown', closePopupByEsc);
 }
 
 const closePopupByEsc = function (e) {
@@ -149,16 +134,18 @@ const formSubmitHandler = function (e) {
 }
 
 addButton.addEventListener('click', () => {
-  formCreateValidator.clearValidation();
   openPopup(popupCreate);
 });
+
 popupOpen.addEventListener('click', () => {
-  formEditValidator.clearValidation();
   fillingText();
   openPopup(popupEdit);
 });
+
 formElement.addEventListener('submit', formSubmitHandler);
+
 formCreate.addEventListener('submit', createCard);
+
 closeButtons.forEach(function (item) {
   item.addEventListener('click', () => {
     popups.forEach((popup) => {
@@ -174,7 +161,6 @@ popups.forEach((popupElement) => {
 initialCards.forEach((item) => {
   const card = new Card(item, '.element-template');
   const cardElement = card.generateCard();
-
   cardElements.append(cardElement);
 })
 

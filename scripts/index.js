@@ -1,6 +1,6 @@
 import { Card } from './card.js';
 import { FormValidator } from './formValidator.js'
-export { openPopup, popupImage, popupImageOpened, popupTitle, popupInputs, config }
+export { openPopup, popupImage, popupImageOpened, popupTitle, config }
 
 const initialCards = [
   {
@@ -49,6 +49,7 @@ const popupInputs = Array.from(document.querySelectorAll('.popup__input'));
 const popups = Array.from(document.querySelectorAll('.popup'));
 const popupSaveElems = Array.from(document.querySelectorAll('.popup__submit'))
 const submitInCreateForm = document.querySelector('#js-submit-disabled');
+const popupSaveElem = document.querySelector('.popup__submit');
 
 const config = {
   formSelector: '.popup__form',
@@ -65,8 +66,6 @@ const config = {
 const openPopup = function (popup) {
   popup.classList.add('popup_is-opened');
   document.addEventListener('keydown', closePopupByEsc);
-  formCreateValidator.clearValidation();
-  formEditValidator.clearValidation();
 }
 
 const fillingText = function () {
@@ -87,11 +86,6 @@ const createCard = function (e) {
 
   cardElements.prepend(cardElement);
   formCreate.reset();
-  popupInputs.forEach((popupInput) => {
-    if (popupInput.value == '') {
-      submitInCreateForm.classList.add('popup__submit_inactive');
-    }
-  })
   closePopup(popupCreate);
 }
 
@@ -124,22 +118,18 @@ const formSubmitHandler = function (e) {
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
 
-  popupSaveElems.forEach((item) => {
-    item.addEventListener('click', () => {
-      popups.forEach((popup) => {
-        closePopup(popup)
-      });
-    })
-  })
+  closePopup(popupEdit)
 }
-
-addButton.addEventListener('click', () => {
-  openPopup(popupCreate);
-});
 
 popupOpen.addEventListener('click', () => {
   fillingText();
   openPopup(popupEdit);
+  formEditValidator.clearValidation();
+});
+
+addButton.addEventListener('click', () => {
+  formCreateValidator.clearValidation();
+  openPopup(popupCreate);
 });
 
 formElement.addEventListener('submit', formSubmitHandler);

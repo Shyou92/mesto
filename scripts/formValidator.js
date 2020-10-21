@@ -51,6 +51,7 @@ export class FormValidator {
   }
 
   clearValidation() {
+    this._toggleButtonState()
     if (this._hasInvalidInput()) {
       this._formElement.querySelector(this._inputErrorClass).textContent = '';
     }

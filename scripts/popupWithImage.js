@@ -8,7 +8,6 @@ export default class PopupWithImage extends Popup {
   }
 
   openPopup(title, image) {
-    console.log(this);
     this._popup.classList.add('popup_is-opened');
     this.setEventListeners();
 

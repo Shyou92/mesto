@@ -14,7 +14,7 @@ export default class Popup {
     document.removeEventListener('keyup', this._handleEscClose.bind(this));
   }
 
-  closeByClickOnOverlay(e) {
+  _closeByClickOnOverlay(e) {
     if (e.target !== e.currentTarget) {
       return
     } else {
@@ -31,6 +31,6 @@ export default class Popup {
   setEventListeners() {
     document.addEventListener('keyup', this._handleEscClose.bind(this));
     this._closeButton.addEventListener('click', this.closePopup.bind(this));
-    this._popup.addEventListener('click', this.closeByClickOnOverlay.bind(this));
+    this._popup.addEventListener('click', this._closeByClickOnOverlay.bind(this));
   }
 }

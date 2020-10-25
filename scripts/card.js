@@ -41,15 +41,5 @@ export class Card {
     this._element.remove();
     this._element = null
   }
-
-  // _handleOpenPopup() {
-  //   openPopup(popupImage);
-
-  //   const cardImage = this._element.querySelector('.element__photo');
-  //   const cardTitle = this._element.querySelector('.element__heading');
-  //   popupImageOpened.src = cardImage.src;
-  //   popupTitle.textContent = cardTitle.textContent;
-  //   popupTitle.textContent = cardImage.alt;
-  // }
 }
 

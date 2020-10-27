@@ -2,7 +2,9 @@ import { Card } from './card.js';
 import { FormValidator } from './formValidator.js'
 // import { Section } from './section.js';
 import Popup from './popup.js';
+import PopupWithForm from './popupWithForm.js';
 import PopupWithImage from './popupWithImage.js';
+import UserInfo from './userInfo.js';
 // export { popupImage, popupImageOpened, popupTitle, config }
 
 const initialCards = [
@@ -72,14 +74,40 @@ const popupImageWithConfig = {
   image: '.popup__image',
 }
 
-const editPopup = new Popup('#js-edit');
-const createPopup = new Popup('#js-create');
+const userData = {
+  name: '.profile__info-name',
+  job: '.profile__info-job',
+}
+
+const popupData = {
+  name: document.querySelector('.popup__input_name').innerHTML,
+  job: document.querySelector('.popup__input_job'),
+}
+
+console.log(popupData);
+
+const getInfo = new UserInfo(userData)
+
+const editPopup = new PopupWithForm('#js-edit', () => {
+  getInfo.setUserInfo(popupData)
+});
+const createPopup = new PopupWithForm('#js-create');
+
+popupOpen.addEventListener('click', () => {
+  editPopup.openPopup();
+  const userData = getInfo.getUserInfo();
+  nameInput.value = userData.name;
+  jobInput.value = userData.job;
+});
+
+// const editPopup = new Popup('#js-edit');
+// const createPopup = new Popup('#js-create');
 const popupWithImg = new PopupWithImage('#js-image', popupImageWithConfig);
 
-const fillingText = function () {
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
-}
+// const fillingText = function () {
+//   nameInput.value = profileName.textContent;
+//   jobInput.value = profileJob.textContent;
+// }
 
 const createCard = function (e) {
   e.preventDefault();
@@ -89,7 +117,7 @@ const createCard = function (e) {
     link: cardImage.value,
   }
 
-  const card = new Card(initializeCard, '.element-template');
+  const card = new Card(initializeCard, '.element-template', popupWithImg.openPopup.bind(popupWithImg));
   const cardElement = card.generateCard();
 
   cardElements.prepend(cardElement);
@@ -97,27 +125,27 @@ const createCard = function (e) {
   createPopup.closePopup();
 }
 
-const formSubmitHandler = function (e) {
-  e.preventDefault();
+// const formSubmitHandler = function (e) {
+//   e.preventDefault();
 
-  profileName.textContent = nameInput.value;
-  profileJob.textContent = jobInput.value;
+//   profileName.textContent = nameInput.value;
+//   profileJob.textContent = jobInput.value;
 
-  editPopup.closePopup();
-}
+//   editPopup.closePopup();
+// }
 
-popupOpen.addEventListener('click', () => {
-  fillingText();
-  editPopup.openPopup();
-  formEditValidator.clearValidation();
-});
+// popupOpen.addEventListener('click', () => {
+//   fillingText();
+//   editPopup.openPopup();
+//   formEditValidator.clearValidation();
+// });
 
 addButton.addEventListener('click', () => {
   formCreateValidator.clearValidation();
   createPopup.openPopup();
 });
 
-formElement.addEventListener('submit', formSubmitHandler);
+// formElement.addEventListener('submit', formSubmitHandler);
 
 formCreate.addEventListener('submit', createCard);
 

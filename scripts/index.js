@@ -4,6 +4,7 @@ import { FormValidator } from './formValidator.js'
 import Popup from './popup.js';
 import PopupWithForm from './popupWithForm.js';
 import PopupWithImage from './popupWithImage.js';
+import Section from './section.js';
 import UserInfo from './userInfo.js';
 // export { popupImage, popupImageOpened, popupTitle, config }
 
@@ -57,6 +58,7 @@ const popupSaveElems = Array.from(document.querySelectorAll('.popup__submit'))
 const submitInCreateForm = document.querySelector('#js-submit-disabled');
 const popupSaveElem = document.querySelector('.popup__submit');
 
+
 const config = {
   formSelector: '.popup__form',
   formEdit: '#js-edit',
@@ -79,19 +81,47 @@ const userData = {
   job: '.profile__info-job',
 }
 
-const popupData = {
-  name: document.querySelector('.popup__input_name').innerHTML,
-  job: document.querySelector('.popup__input_job'),
-}
-
-console.log(popupData);
-
-const getInfo = new UserInfo(userData)
-
-const editPopup = new PopupWithForm('#js-edit', () => {
-  getInfo.setUserInfo(popupData)
+const getInfo = new UserInfo(userData);
+const editPopup = new PopupWithForm('#js-edit', (data) => {
+  getInfo.setUserInfo(data);
 });
-const createPopup = new PopupWithForm('#js-create');
+const createPopup = new PopupWithForm('#js-create', (data) => {
+  const addCard = new Section(
+    {
+      items: data, renderer: (item) => {
+        const card = new Card(item, '.element-template', popupWithImg.openPopup.bind(popupWithImg));
+        const cardElement = card.generateCard();
+        addCard.addItem(cardElement);
+      }
+    }, cardElements
+  )
+});
+const popupWithImg = new PopupWithImage('#js-image', popupImageWithConfig);
+
+// const createCard = function (e) {
+//   e.preventDefault();
+
+//   const initializeCard = {
+//     name: cardTitle.value,
+//     link: cardImage.value,
+//   }
+
+//   const card = new Card(initializeCard, '.element-template', popupWithImg.openPopup.bind(popupWithImg));
+//   const cardElement = card.generateCard();
+
+//   cardElements.prepend(cardElement);
+//   formCreate.reset();
+//   createPopup.closePopup();
+// }
+
+addButton.addEventListener('click', () => {
+  formCreateValidator.clearValidation();
+  createPopup.openPopup();
+});
+
+popupSaveElem.addEventListener('click', () => {
+
+})
 
 popupOpen.addEventListener('click', () => {
   editPopup.openPopup();
@@ -100,60 +130,19 @@ popupOpen.addEventListener('click', () => {
   jobInput.value = userData.job;
 });
 
-// const editPopup = new Popup('#js-edit');
-// const createPopup = new Popup('#js-create');
-const popupWithImg = new PopupWithImage('#js-image', popupImageWithConfig);
+// formCreate.addEventListener('submit', createCard);
 
-// const fillingText = function () {
-//   nameInput.value = profileName.textContent;
-//   jobInput.value = profileJob.textContent;
-// }
+const initialGallery = new Section(
+  {
+    items: initialCards, renderer: (item) => {
+      const card = new Card(item, '.element-template', popupWithImg.openPopup.bind(popupWithImg));
+      const cardElement = card.generateCard();
+      initialGallery.addItem(cardElement);
+    }
+  }, cardElements
+)
 
-const createCard = function (e) {
-  e.preventDefault();
-
-  const initializeCard = {
-    name: cardTitle.value,
-    link: cardImage.value,
-  }
-
-  const card = new Card(initializeCard, '.element-template', popupWithImg.openPopup.bind(popupWithImg));
-  const cardElement = card.generateCard();
-
-  cardElements.prepend(cardElement);
-  formCreate.reset();
-  createPopup.closePopup();
-}
-
-// const formSubmitHandler = function (e) {
-//   e.preventDefault();
-
-//   profileName.textContent = nameInput.value;
-//   profileJob.textContent = jobInput.value;
-
-//   editPopup.closePopup();
-// }
-
-// popupOpen.addEventListener('click', () => {
-//   fillingText();
-//   editPopup.openPopup();
-//   formEditValidator.clearValidation();
-// });
-
-addButton.addEventListener('click', () => {
-  formCreateValidator.clearValidation();
-  createPopup.openPopup();
-});
-
-// formElement.addEventListener('submit', formSubmitHandler);
-
-formCreate.addEventListener('submit', createCard);
-
-initialCards.forEach((item) => {
-  const card = new Card(item, '.element-template', popupWithImg.openPopup.bind(popupWithImg));
-  const cardElement = card.generateCard();
-  cardElements.append(cardElement);
-})
+initialGallery.renderItems();
 
 const formEditValidator = new FormValidator(config.formEdit, config);
 formEditValidator.enableValidation();

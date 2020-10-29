@@ -9,7 +9,6 @@ export default class PopupWithForm extends Popup {
   }
 
   _getInputValues() {
-
     this._inputObj = {};
 
     this._inputList.forEach((item) => {
@@ -28,8 +27,10 @@ export default class PopupWithForm extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
+
     this._popupSelector.addEventListener('submit', () => {
       this.closePopup();
+      this._formSubmit(this._getInputValues());
     })
   }
 }

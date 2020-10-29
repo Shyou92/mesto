@@ -1,9 +1,9 @@
 export class Card {
-  constructor(options, template, openPopup) {
+  constructor(options, template, handleCardClick) {
     this._name = options.name,
       this._link = options.link,
       this._template = template,
-      this._openPopup = openPopup
+      this._handleCardClick = handleCardClick
   }
 
   _getTemplate() {
@@ -29,7 +29,7 @@ export class Card {
       this._deleteCard();
     })
     this._element.querySelector('.element__photo').addEventListener('click', () => {
-      this._openPopup(this._name, this._link);
+      this._handleCardClick(this._name, this._link);
     })
   }
 

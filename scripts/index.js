@@ -81,47 +81,25 @@ const userData = {
   job: '.profile__info-job',
 }
 
+
 const getInfo = new UserInfo(userData);
+console.log(getInfo);
 const editPopup = new PopupWithForm('#js-edit', (data) => {
   getInfo.setUserInfo(data);
 });
 const createPopup = new PopupWithForm('#js-create', (data) => {
-  const addCard = new Section(
-    {
-      items: data, renderer: (item) => {
-        const card = new Card(item, '.element-template', popupWithImg.openPopup.bind(popupWithImg));
-        const cardElement = card.generateCard();
-        addCard.addItem(cardElement);
-      }
-    }, cardElements
-  )
+  console.log(data);
+  const card = new Card(data, '.element-template', popupWithImg.openPopup.bind(popupWithImg));
+  const cardElement = card.generateCard();
+  cardElements.prepend(cardElement);
 });
+
 const popupWithImg = new PopupWithImage('#js-image', popupImageWithConfig);
-
-// const createCard = function (e) {
-//   e.preventDefault();
-
-//   const initializeCard = {
-//     name: cardTitle.value,
-//     link: cardImage.value,
-//   }
-
-//   const card = new Card(initializeCard, '.element-template', popupWithImg.openPopup.bind(popupWithImg));
-//   const cardElement = card.generateCard();
-
-//   cardElements.prepend(cardElement);
-//   formCreate.reset();
-//   createPopup.closePopup();
-// }
 
 addButton.addEventListener('click', () => {
   formCreateValidator.clearValidation();
   createPopup.openPopup();
 });
-
-popupSaveElem.addEventListener('click', () => {
-
-})
 
 popupOpen.addEventListener('click', () => {
   editPopup.openPopup();
@@ -129,8 +107,6 @@ popupOpen.addEventListener('click', () => {
   nameInput.value = userData.name;
   jobInput.value = userData.job;
 });
-
-// formCreate.addEventListener('submit', createCard);
 
 const initialGallery = new Section(
   {

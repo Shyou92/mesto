@@ -6,34 +6,8 @@ import PopupWithImage from '../components/popupWithImage.js';
 import Section from '../components/section.js';
 import UserInfo from '../components/userInfo.js';
 
-const getInfo = new UserInfo(userData);
-
-const editPopup = new PopupWithForm('#js-edit', (data) => {
-  getInfo.setUserInfo(data);
-});
-
-const createPopup = new PopupWithForm('#js-create', (data) => {
-  const card = new Card(data, '.element-template', popupWithImg.openPopup.bind(popupWithImg));
-  const cardElement = card.generateCard();
-  cardElements.prepend(cardElement);
-});
-
 const popupWithImg = new PopupWithImage('#js-image', popupImageWithConfig);
-
-addButton.addEventListener('click', () => {
-  createPopup.openPopup();
-  // createPopup.setEventListeners();
-  formCreateValidator.clearValidation();
-});
-
-popupOpen.addEventListener('click', () => {
-  editPopup.openPopup();
-  const userData = getInfo.getUserInfo();
-  nameInput.value = userData.name;
-  jobInput.value = userData.job;
-  formEditValidator.clearValidation();
-});
-
+popupWithImg.setEventListeners()
 const initialGallery = new Section(
   {
     items: initialCards, renderer: (item) => {
@@ -45,6 +19,39 @@ const initialGallery = new Section(
 )
 
 initialGallery.renderItems();
+
+const getInfo = new UserInfo(userData);
+
+const editPopup = new PopupWithForm('#js-edit', (data) => {
+  getInfo.setUserInfo(data);
+});
+
+editPopup.setEventListeners();
+
+const createPopup = new PopupWithForm('#js-create', (data) => {
+  const card = new Card(data, '.element-template', popupWithImg.openPopup.bind(popupWithImg));
+  const cardElement = card.generateCard();
+  cardElements.prepend(cardElement);
+});
+
+createPopup.setEventListeners();
+
+
+
+addButton.addEventListener('click', () => {
+  createPopup.openPopup();
+  formCreateValidator.clearValidation();
+});
+
+popupOpen.addEventListener('click', () => {
+  editPopup.openPopup();
+  const userData = getInfo.getUserInfo();
+  nameInput.value = userData.name;
+  jobInput.value = userData.job;
+  formEditValidator.clearValidation();
+});
+
+
 
 const formEditValidator = new FormValidator(config.formEdit, config);
 formEditValidator.enableValidation();

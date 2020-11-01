@@ -4,7 +4,7 @@
   "description": "Данный проект представляет собой начальную версию аналога Instagram.",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf dist && webpack --mode production",
+    "build": "rimraf dist && webpack --mode production",
     "dev": "webpack-dev-server",
     "deploy": "gh-pages -d dist"
   },

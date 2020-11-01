@@ -1,10 +1,11 @@
-import { popupOpen, initialCards, cardElements, addButton, nameInput, jobInput, config, popupImageWithConfig, userData } from '../utils/constants.js'
-import { Card } from '../components/card.js';
-import { FormValidator } from '../components/formValidator.js'
-import PopupWithForm from '../components/popupWithForm.js';
-import PopupWithImage from '../components/popupWithImage.js';
-import Section from '../components/section.js';
-import UserInfo from '../components/userInfo.js';
+import '../pages/index.css';
+import { popupOpen, initialCards, cardElements, addButton, nameInput, jobInput, config, popupImageWithConfig, userData } from './utils/constants.js'
+import { Card } from './components/card.js';
+import { FormValidator } from './components/formValidator.js'
+import PopupWithForm from './components/popupWithForm.js';
+import PopupWithImage from './components/popupWithImage.js';
+import Section from './components/section.js';
+import UserInfo from './components/userInfo.js';
 
 const popupWithImg = new PopupWithImage('#js-image', popupImageWithConfig);
 popupWithImg.setEventListeners()

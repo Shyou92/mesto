@@ -1,40 +1,49 @@
 export class Card {
   constructor(options, template, handleCardClick) {
-    this._name = options.name,
-      this._link = options.link,
-      this._template = template,
-      this._handleCardClick = handleCardClick
+    (this._name = options.name),
+      (this._link = options.link),
+      (this._template = template),
+      (this._handleCardClick = handleCardClick);
   }
 
   _getTemplate() {
-    return document.querySelector(this._template).content.cloneNode(true).children[0];
+    return document.querySelector(this._template).content.cloneNode(true)
+      .children[0];
   }
 
   generateCard() {
     this._element = this._getTemplate();
     this._setEventListeners();
 
-    this._element.querySelector('.element__photo').src = this._link;
-    this._element.querySelector('.element__photo').alt = this._name;
-    this._element.querySelector('.element__heading').textContent = this._name;
+    this._element.querySelector(".element__photo").src = this._link;
+    this._element.querySelector(".element__photo").alt = this._name;
+    this._element.querySelector(".element__heading").textContent = this._name;
 
-    return this._element
+    return this._element;
   }
 
   _setEventListeners() {
-    this._element.querySelector('.element__like').addEventListener('click', () => {
-      this._like();
-    });
-    this._element.querySelector('.element__delete').addEventListener('click', () => {
-      this._deleteCard();
-    })
-    this._element.querySelector('.element__photo').addEventListener('click', () => {
-      this._handleCardClick(this._name, this._link);
-    })
+    this._element
+      .querySelector(".element__like")
+      .addEventListener("click", () => {
+        this._like();
+      });
+    this._element
+      .querySelector(".element__delete")
+      .addEventListener("click", () => {
+        this._deleteCard();
+      });
+    this._element
+      .querySelector(".element__photo")
+      .addEventListener("click", () => {
+        this._handleCardClick(this._name, this._link);
+      });
   }
 
   _like() {
-    this._element.querySelector('.element__like').classList.toggle('element__like_state_active');
+    this._element
+      .querySelector(".element__like")
+      .classList.toggle("element__like_state_active");
   }
 
   _deleteCard() {
@@ -42,4 +51,3 @@ export class Card {
     this._element = null;
   }
 }
-

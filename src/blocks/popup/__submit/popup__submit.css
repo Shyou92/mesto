@@ -11,11 +11,11 @@
   font-size: 18px;
   line-height: 22px;
   text-align: center;
-  color: #FFF;
+  color: #fff;
   cursor: pointer;
 }
 
-.popup__submit:not(.popup__submit_inactive):hover{
+.popup__submit:not(.popup__submit_inactive):hover {
   background: rgba(0, 0, 0, 0.8);
   transition: 1s;
 }

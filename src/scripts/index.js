@@ -21,7 +21,7 @@ import Section from "./components/section.js";
 import UserInfo from "./components/userInfo.js";
 import Api from "./components/api.js";
 
-const api = new Api({
+const apiUser = new Api({
   url: "https://mesto.nomoreparties.co/v1/cohort-17",
   method: "GET",
   headers: {
@@ -32,23 +32,33 @@ const api = new Api({
 
 const popupWithImg = new PopupWithImage("#js-image", popupImageWithConfig);
 popupWithImg.setEventListeners();
-const initialGallery = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      const card = new Card(
-        item,
-        ".element-template",
-        popupWithImg.openPopup.bind(popupWithImg)
-      );
-      const cardElement = card.generateCard();
-      initialGallery.addItem(cardElement);
-    },
-  },
-  cardElements
-);
 
-initialGallery.renderItems();
+const apiGallery = new Api({
+  url: "https://mesto.nomoreparties.co/v1/cohort-17",
+  method: "GET",
+  headers: {
+    authorization: "a3d68f30-ff26-46e5-95a8-5a60641ab807",
+    "Content-Type": "application/json",
+  },
+});
+
+// const initialGallery = new Section(
+//   {
+//     items: initialCards,
+//     renderer: (item) => {
+//       const card = new Card(
+//         item,
+//         ".element-template",
+//         popupWithImg.openPopup.bind(popupWithImg)
+//       );
+//       const cardElement = card.generateCard();
+//       initialGallery.addItem(cardElement);
+//     },
+//   },
+//   cardElements
+// );
+
+// initialGallery.renderItems();
 
 const getInfo = new UserInfo(userData);
 
@@ -89,8 +99,30 @@ formEditValidator.enableValidation();
 const formCreateValidator = new FormValidator(config.formCreate, config);
 formCreateValidator.enableValidation();
 
-api.getUserInfo().then((result) => {
+apiUser.getUserInfo().then((result) => {
   profileName.textContent = result.name;
   profileJob.textContent = result.about;
   profileImage.src = result.avatar;
 });
+
+apiGallery
+  .getCards()
+  .then((result) => {
+    const initialGallery = new Section(
+      {
+        items: result,
+        renderer: (item) => {
+          const card = new Card(
+            item,
+            ".element-template",
+            popupWithImg.openPopup.bind(popupWithImg)
+          );
+          const cardElement = card.generateCard();
+          initialGallery.addItem(cardElement);
+        },
+      },
+      cardElements
+    );
+    return initialGallery;
+  })
+  .then((data) => data.renderItems());

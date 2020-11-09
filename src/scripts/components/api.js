@@ -24,6 +24,25 @@ export default class Api {
       });
   }
 
+  getCards() {
+    return fetch(`${this.baseUrl}/cards`, {
+      headers: {
+        authorization: this.token,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return Promise.reject(`Error ${res.status} - ${res.statusText}`);
+        }
+      })
+      .then((result) => {
+        return result;
+      });
+  }
+
   setUserInfo() {
     return fetch(`${this.baseUrl}/users/me`, {
       method: "PATCH",

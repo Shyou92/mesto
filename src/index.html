@@ -14,11 +14,11 @@
 
   <main class="content">
     <section class="profile">
-      <img src="./images/Avatar.svg" class="profile__image" alt="Жак-Ив-Кусто">
+      <img src="#" class="profile__image" alt="Жак-Ив-Кусто">
       <div class="profile__info">
-        <h2 class="profile__info-name">Жак-Ив-Кусто</h2>
+        <h2 class="profile__info-name"></h2>
         <button class="profile__info-edit"></button>
-        <p class="profile__info-job">Исследователь океана</p>
+        <p class="profile__info-job"></p>
       </div>
       <button class="profile__add-button"></button>
     </section>
@@ -43,7 +43,7 @@
         </section>
         <section class="popup__form-section">
           <input type="text" required class="popup__input popup__input_job" id="edit-job-popup" minlength="2"
-            maxlength="200" name="job" placeholder="Профессия">
+            maxlength="200" name="about" placeholder="Профессия">
           <span class="popup__input_error" id="edit-job-popup-error"></span>
         </section>
         <button class="popup__submit" type="submit">Сохранить</button>
@@ -88,7 +88,7 @@
     </div>
   </div>
 
-  <div class="popup popup_is-opened">
+  <div class="popup">
     <div class="popup__container popup__container_content_text popup__container_update">
       <h3 class="popup__title">Обновить аватар</h3>
       <input type="url" required class="popup__input" placeholder="Обновимся?">

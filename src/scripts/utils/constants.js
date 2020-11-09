@@ -36,6 +36,9 @@ const cardElements = document.querySelector(".elements");
 const addButton = document.querySelector(".profile__add-button");
 const nameInput = formElement.querySelector(".popup__input_name");
 const jobInput = formElement.querySelector(".popup__input_job");
+const profileName = document.querySelector(".profile__info-name");
+const profileJob = document.querySelector(".profile__info-job");
+const profileImage = document.querySelector(".profile__image");
 const config = {
   formSelector: ".popup__form",
   formEdit: "#js-edit",
@@ -53,7 +56,7 @@ const popupImageWithConfig = {
 };
 const userData = {
   name: ".profile__info-name",
-  job: ".profile__info-job",
+  about: ".profile__info-job",
 };
 
 export {
@@ -67,4 +70,7 @@ export {
   config,
   popupImageWithConfig,
   userData,
+  profileImage,
+  profileName,
+  profileJob,
 };

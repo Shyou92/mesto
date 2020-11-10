@@ -1,7 +1,6 @@
 import "../pages/index.css";
 import {
   popupOpen,
-  initialCards,
   cardElements,
   addButton,
   nameInput,
@@ -42,28 +41,31 @@ const apiGallery = new Api({
   },
 });
 
-// const initialGallery = new Section(
-//   {
-//     items: initialCards,
-//     renderer: (item) => {
-//       const card = new Card(
-//         item,
-//         ".element-template",
-//         popupWithImg.openPopup.bind(popupWithImg)
-//       );
-//       const cardElement = card.generateCard();
-//       initialGallery.addItem(cardElement);
-//     },
-//   },
-//   cardElements
-// );
-
-// initialGallery.renderItems();
+const apiEditUser = new Api({
+  url: "https://mesto.nomoreparties.co/v1/cohort-17",
+  method: "PATCH",
+  headers: {
+    authorization: "a3d68f30-ff26-46e5-95a8-5a60641ab807",
+    "Content-Type": "application/json",
+  },
+});
 
 const getInfo = new UserInfo(userData);
 
 const editPopup = new PopupWithForm("#js-edit", (data) => {
-  getInfo.setUserInfo(data);
+  console.log(data);
+  apiEditUser
+    .setUserInfo({
+      name: data.name,
+      about: data.about,
+    })
+    .then((info) => {
+      profileName.textContent = info.name;
+      profileJob.textContent = info.about;
+    })
+    .finally(() => {
+      editPopup.closePopup();
+    });
 });
 
 editPopup.setEventListeners();

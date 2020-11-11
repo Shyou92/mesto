@@ -20,48 +20,22 @@ import Section from "./components/section.js";
 import UserInfo from "./components/userInfo.js";
 import Api from "./components/api.js";
 
-const apiUser = new Api({
-  url: "https://mesto.nomoreparties.co/v1/cohort-17",
-  method: "GET",
-  headers: {
-    authorization: "a3d68f30-ff26-46e5-95a8-5a60641ab807",
-    "Content-Type": "application/json",
-  },
-});
+const api = new Api(
+  "https://mesto.nomoreparties.co/",
+  "cohort-17",
+  "a3d68f30-ff26-46e5-95a8-5a60641ab807"
+);
 
 const popupWithImg = new PopupWithImage("#js-image", popupImageWithConfig);
 popupWithImg.setEventListeners();
 
-const apiGallery = new Api({
-  url: "https://mesto.nomoreparties.co/v1/cohort-17",
-  method: "GET",
-  headers: {
-    authorization: "a3d68f30-ff26-46e5-95a8-5a60641ab807",
-    "Content-Type": "application/json",
-  },
-});
-
-const apiEditUser = new Api({
-  url: "https://mesto.nomoreparties.co/v1/cohort-17",
-  method: "PATCH",
-  headers: {
-    authorization: "a3d68f30-ff26-46e5-95a8-5a60641ab807",
-    "Content-Type": "application/json",
-  },
-});
-
-const getInfo = new UserInfo(userData);
+const userInfo = new UserInfo(userData);
 
 const editPopup = new PopupWithForm("#js-edit", (data) => {
-  console.log(data);
-  apiEditUser
-    .setUserInfo({
-      name: data.name,
-      about: data.about,
-    })
+  api
+    .setUserInfo(data)
     .then((info) => {
-      profileName.textContent = info.name;
-      profileJob.textContent = info.about;
+      userInfo.setUserInfo(info);
     })
     .finally(() => {
       editPopup.closePopup();
@@ -71,13 +45,15 @@ const editPopup = new PopupWithForm("#js-edit", (data) => {
 editPopup.setEventListeners();
 
 const createPopup = new PopupWithForm("#js-create", (data) => {
-  const card = new Card(
-    data,
-    ".element-template",
-    popupWithImg.openPopup.bind(popupWithImg)
-  );
-  const cardElement = card.generateCard();
-  cardElements.prepend(cardElement);
+  api.addCard(data.name, data.link).then((res) => {
+    const card = new Card(
+      res,
+      ".element-template",
+      popupWithImg.openPopup.bind(popupWithImg)
+    );
+    const cardElement = card.generateCard();
+    cardElements.prepend(cardElement);
+  });
 });
 
 createPopup.setEventListeners();
@@ -89,7 +65,7 @@ addButton.addEventListener("click", () => {
 
 popupOpen.addEventListener("click", () => {
   editPopup.openPopup();
-  const userData = getInfo.getUserInfo();
+  const userData = userInfo.getUserInfo();
   nameInput.value = userData.name;
   jobInput.value = userData.about;
   formEditValidator.clearValidation();
@@ -101,13 +77,13 @@ formEditValidator.enableValidation();
 const formCreateValidator = new FormValidator(config.formCreate, config);
 formCreateValidator.enableValidation();
 
-apiUser.getUserInfo().then((result) => {
+api.getUserInfo().then((result) => {
   profileName.textContent = result.name;
   profileJob.textContent = result.about;
   profileImage.src = result.avatar;
 });
 
-apiGallery
+api
   .getCards()
   .then((result) => {
     const initialGallery = new Section(

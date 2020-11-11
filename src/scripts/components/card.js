@@ -4,6 +4,7 @@ export class Card {
       (this._link = options.link),
       (this._template = template),
       (this._handleCardClick = handleCardClick);
+    this._isLiked = options.likes;
   }
 
   _getTemplate() {
@@ -18,6 +19,9 @@ export class Card {
     this._element.querySelector(".element__photo").src = this._link;
     this._element.querySelector(".element__photo").alt = this._name;
     this._element.querySelector(".element__heading").textContent = this._name;
+    this._element.querySelector(
+      ".element__like-counter"
+    ).textContent = this._isLiked.length;
 
     return this._element;
   }

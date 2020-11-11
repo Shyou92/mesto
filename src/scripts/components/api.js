@@ -74,4 +74,22 @@ export default class Api {
       }
     });
   }
+
+  likeCard() {
+    return fetch(`${this.baseUrl}v1/${this.group}/cards`, {
+      method: "PATCH",
+      headers: {
+        authorization: this.token,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return Promise.reject(`Error ${res.status} - ${res.statusText}`);
+        }
+      })
+      .then((data) => console.log(data.likes));
+  }
 }

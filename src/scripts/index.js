@@ -19,17 +19,17 @@ import PopupWithImage from "./components/popupWithImage.js";
 import Section from "./components/section.js";
 import UserInfo from "./components/userInfo.js";
 import Api from "./components/api.js";
+// import PopupConfirm from "./components/popupConfirm.js";
 
 const api = new Api(
   "https://mesto.nomoreparties.co/",
   "cohort-17",
   "a3d68f30-ff26-46e5-95a8-5a60641ab807"
 );
+const userInfo = new UserInfo(userData);
 
 const popupWithImg = new PopupWithImage("#js-image", popupImageWithConfig);
 popupWithImg.setEventListeners();
-
-const userInfo = new UserInfo(userData);
 
 const editPopup = new PopupWithForm("#js-edit", (data) => {
   api
@@ -44,13 +44,17 @@ const editPopup = new PopupWithForm("#js-edit", (data) => {
 
 editPopup.setEventListeners();
 
+function renderCard(item) {
+  return new Card({
+    options: item,
+    template: ".element-template",
+    handlecardClick: popupWithImg.openPopup.bind(popupWithImg),
+  });
+}
+
 const createPopup = new PopupWithForm("#js-create", (data) => {
   api.addCard(data.name, data.link).then((res) => {
-    const card = new Card(
-      res,
-      ".element-template",
-      popupWithImg.openPopup.bind(popupWithImg)
-    );
+    const card = renderCard(res);
     const cardElement = card.generateCard();
     cardElements.prepend(cardElement);
   });
@@ -66,6 +70,7 @@ addButton.addEventListener("click", () => {
 popupOpen.addEventListener("click", () => {
   editPopup.openPopup();
   const userData = userInfo.getUserInfo();
+  console.log(userData);
   nameInput.value = userData.name;
   jobInput.value = userData.about;
   formEditValidator.clearValidation();
@@ -77,30 +82,37 @@ formEditValidator.enableValidation();
 const formCreateValidator = new FormValidator(config.formCreate, config);
 formCreateValidator.enableValidation();
 
-api.getUserInfo().then((result) => {
-  profileName.textContent = result.name;
-  profileJob.textContent = result.about;
-  profileImage.src = result.avatar;
-});
+// const popupConfirm = new PopupConfirm("#js-confirm");
 
-api
-  .getCards()
-  .then((result) => {
-    const initialGallery = new Section(
+// function deleteCard(card) {
+//   popupConfirm.openPopup();
+//   popupConfirm.setSubmitCallback(() => {
+//     api.deleteCard(card._id).then(() => {
+//       card.remove();
+//       popupConfirm.closePopup();
+//     });
+//   });
+// }
+
+Promise.all([api.getUserInfo(), api.getCards()])
+  .then(([userData, receivedCards]) => [
+    userInfo.setUserInfo(userData),
+    new Section(
       {
-        items: result,
+        items: receivedCards,
         renderer: (item) => {
-          const card = new Card(
-            item,
-            ".element-template",
-            popupWithImg.openPopup.bind(popupWithImg)
-          );
+          const card = renderCard(item);
           const cardElement = card.generateCard();
-          initialGallery.addItem(cardElement);
+          cardElements.append(cardElement);
         },
       },
       cardElements
-    );
-    return initialGallery;
-  })
-  .then((data) => data.renderItems());
+    ),
+  ])
+  .then((data) => data[1].renderItems());
+// console.log(
+//   userData._id,
+//   receivedCards.forEach((item) => {
+//     console.log(item.owner._id);
+//   })
+// )

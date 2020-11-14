@@ -25,6 +25,7 @@ const popupImageWithConfig = {
 const userData = {
   name: ".profile__info-name",
   about: ".profile__info-job",
+  avatar: ".profile__image",
 };
 
 export {

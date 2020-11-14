@@ -92,4 +92,20 @@ export default class Api {
       })
       .then((data) => console.log(data.likes));
   }
+
+  deleteCard(cardID) {
+    return fetch(`${this.baseUrl}/v1/${this.group}/cards/${cardID}`, {
+      method: "DELETE",
+      headers: {
+        authorization: this.token,
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Error ${res.status} - ${res.statusText}`);
+      }
+    });
+  }
 }

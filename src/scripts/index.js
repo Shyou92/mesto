@@ -51,7 +51,7 @@ const popupWithImg = new PopupWithImage("#js-image", popupImageWithConfig);
 popupWithImg.setEventListeners();
 
 const editPopup = new PopupWithForm("#js-edit", (data) => {
-  console.log(data);
+  editPopup.isLoading("Сохранение...");
   api
     .setUserInfo(data)
     .then((info) => {
@@ -60,12 +60,14 @@ const editPopup = new PopupWithForm("#js-edit", (data) => {
     .catch((error) => console.log(error))
     .finally(() => {
       editPopup.closePopup();
+      editPopup.isLoaded();
     });
 });
 
 editPopup.setEventListeners();
 
 const editProfile = new PopupWithForm("#js-update", (data) => {
+  editProfile.isLoading("Сохранение...");
   api
     .setAvatar(data.update)
     .then(() => {
@@ -76,12 +78,14 @@ const editProfile = new PopupWithForm("#js-update", (data) => {
     })
     .finally(() => {
       editProfile.closePopup();
+      editProfile.isLoaded();
     });
 });
 
 editProfile.setEventListeners();
 
 profileEditButton.addEventListener("click", () => {
+  formEditAva.clearValidation();
   editProfile.openPopup();
 });
 
@@ -94,26 +98,43 @@ function renderCard(item) {
     handleDeleteCard: (card) => {
       popupConfirm.openPopup();
       popupConfirm.setSubmitCallback(() => {
-        api.deleteCard(card.id).then(() => {
-          popupConfirm.closePopup();
-          card.deleteCard();
-        });
+        popupConfirm.isLoading("Удаление...");
+        api
+          .deleteCard(card.id)
+          .then(() => {
+            popupConfirm.closePopup();
+            card.deleteCard();
+          })
+          .catch((error) => console.log(error))
+          .finally(() => {
+            popupConfirm.closePopup();
+            popupConfirm.isLoaded();
+          });
       });
     },
     handleLikeCard: (card) => {
       api
         .setLikeInfo(card.id, card.isLiked)
-        .then((res) => card.updateLikes(res));
+        .then((res) => card.updateLikes(res))
+        .catch((error) => console.log(error));
     },
   });
 }
 
 const createPopup = new PopupWithForm("#js-create", (data) => {
-  api.addCard(data.name, data.link).then((res) => {
-    const card = renderCard(res);
-    const cardElement = card.generateCard();
-    cardElements.prepend(cardElement);
-  });
+  createPopup.isLoading("Создание...");
+  api
+    .addCard(data.name, data.link)
+    .then((res) => {
+      const card = renderCard(res);
+      const cardElement = card.generateCard();
+      cardElements.prepend(cardElement);
+    })
+    .catch((error) => console.log(error))
+    .finally(() => {
+      createPopup.closePopup();
+      createPopup.isLoaded();
+    });
 });
 
 createPopup.setEventListeners();

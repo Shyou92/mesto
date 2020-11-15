@@ -15,6 +15,8 @@
   <main class="content">
     <section class="profile">
       <img src="#" class="profile__image" name="avatar" alt="Аватарка">
+      <button class="profile__edit"></button>
+      
       <div class="profile__info">
         <h2 class="profile__info-name"></h2>
         <button class="profile__info-edit"></button>
@@ -80,19 +82,24 @@
     </div>
   </div>
 
-  <div class="popup" id="js-confirm">
+  <form class="popup popup__form" id="js-confirm">
     <div class="popup__container popup__container_confirm">
       <h3 class="popup__title">Вы уверены?</h3>
-      <button class="popup__submit popup__submit_confirm">Да</button>
+      <button class="popup__submit popup__submit_confirm" type="submit">Да</button>
       <button class="popup__close" type="button"></button>
     </div>
-  </div>
+  </form>
 
-  <div class="popup">
+  <div class="popup" id="js-update">
     <div class="popup__container popup__container_content_text popup__container_update">
       <h3 class="popup__title">Обновить аватар</h3>
-      <input type="url" required class="popup__input" placeholder="Обновимся?">
-      <button class="popup__submit">Сохранить</button>
+      <form class="popup__form" novalidate>
+        <section class="popup__form-section">
+          <input type="url" required class="popup__input popup__input-update" id="edit-ava-popup" name="update" placeholder="Обновимся?">
+          <span class="popup__input_error" id="edit-ava-popup-error"></span>
+        </section>
+        <button class="popup__submit popup__submit_inactive" disabled type="submit">Сохранить</button>
+      </form>
       <button class="popup__close" type="button"></button>
     </div>
   </div>

@@ -4,13 +4,17 @@ const cardElements = document.querySelector(".elements");
 const addButton = document.querySelector(".profile__add-button");
 const nameInput = formElement.querySelector(".popup__input_name");
 const jobInput = formElement.querySelector(".popup__input_job");
+const editInput = formElement.querySelector(".popup__input-update");
 const profileName = document.querySelector(".profile__info-name");
 const profileJob = document.querySelector(".profile__info-job");
 const profileImage = document.querySelector(".profile__image");
+const profileEdit = document.querySelector("#js-update");
+const profileEditButton = document.querySelector(".profile__edit");
 const config = {
   formSelector: ".popup__form",
   formEdit: "#js-edit",
   formCreate: "#js-create",
+  formEditAvatar: "#js-update",
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__submit",
   inactiveButtonClass: "popup__submit_inactive",
@@ -41,4 +45,7 @@ export {
   profileImage,
   profileName,
   profileJob,
+  profileEdit,
+  profileEditButton,
+  editInput,
 };

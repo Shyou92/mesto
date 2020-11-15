@@ -16,6 +16,7 @@
 @import url(../blocks/profile/__info-edit/profile__info-edit.css);
 @import url(../blocks/profile/__info-job/profile__info-job.css);
 @import url(../blocks/profile/__add-button/profile__add-button.css);
+@import url(../blocks/profile/__edit/profile__edit.css);
 
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/element/element.css);

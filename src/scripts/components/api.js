@@ -75,26 +75,45 @@ export default class Api {
     });
   }
 
-  likeCard() {
-    return fetch(`${this.baseUrl}v1/${this.group}/cards`, {
+  setLikeInfo(cardID, likeState) {
+    const method = likeState ? "DELETE" : "PUT";
+
+    return fetch(`${this.baseUrl}v1/${this.group}/cards/likes/${cardID}`, {
+      method,
+      headers: {
+        authorization: this.token,
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Error ${res.status} - ${res.statusText}`);
+      }
+    });
+  }
+
+  setAvatar(data) {
+    return fetch(`${this.baseUrl}v1/${this.group}/users/me/avatar`, {
       method: "PATCH",
       headers: {
         authorization: this.token,
         "Content-Type": "application/json",
       },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          return Promise.reject(`Error ${res.status} - ${res.statusText}`);
-        }
-      })
-      .then((data) => console.log(data.likes));
+      body: JSON.stringify({
+        avatar: data,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Error ${res.status} - ${res.statusText}`);
+      }
+    });
   }
 
   deleteCard(cardID) {
-    return fetch(`${this.baseUrl}/v1/${this.group}/cards/${cardID}`, {
+    return fetch(`${this.baseUrl}v1/${this.group}/cards/${cardID}`, {
       method: "DELETE",
       headers: {
         authorization: this.token,

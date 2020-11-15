@@ -2,6 +2,7 @@
   width: 115px;
   height: 115px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 @media screen and (max-width: 1024px) {

@@ -2,7 +2,7 @@ export class Card {
   constructor({
     options,
     template,
-    handlecardClick,
+    handleCardClick,
     myId,
     handleDeleteCard,
     handleLikeCard,
@@ -10,7 +10,7 @@ export class Card {
     this._name = options.name;
     this._link = options.link;
     this._template = template;
-    this._handlecardClick = handlecardClick;
+    this._handleCardClick = handleCardClick;
     this._likes = options.likes;
     this._myId = myId;
     this._handleDeleteCard = handleDeleteCard;
@@ -55,7 +55,7 @@ export class Card {
     this._element
       .querySelector(".element__photo")
       .addEventListener("click", () => {
-        this._handlecardClick(this._name, this._link);
+        this._handleCardClick(this._name, this._link);
       });
   }
 

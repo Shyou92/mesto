@@ -4,11 +4,14 @@ const cardElements = document.querySelector(".elements");
 const addButton = document.querySelector(".profile__add-button");
 const nameInput = formElement.querySelector(".popup__input_name");
 const jobInput = formElement.querySelector(".popup__input_job");
-const editInput = document.querySelector("#edit-ava-popup");
+const popupCreateCard = document.querySelector("#js-create");
+const confirmPopup = document.querySelector("#js-confirm");
+const profileEdit = document.querySelector("#js-update");
+const imagePopup = document.querySelector("#js-image");
+const editUserInfo = document.querySelector("#js-edit");
 const profileName = document.querySelector(".profile__info-name");
 const profileJob = document.querySelector(".profile__info-job");
 const profileImage = document.querySelector(".profile__image");
-const profileEdit = document.querySelector("#js-update");
 const profileEditButton = document.querySelector(".profile__edit");
 const config = {
   formSelector: ".popup__form",
@@ -47,5 +50,8 @@ export {
   profileJob,
   profileEdit,
   profileEditButton,
-  editInput,
+  confirmPopup,
+  imagePopup,
+  editUserInfo,
+  popupCreateCard,
 };

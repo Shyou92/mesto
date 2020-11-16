@@ -75,7 +75,7 @@ export default class Api {
     });
   }
 
-  setLikeInfo(cardID, likeState) {
+  setLike(cardID, likeState) {
     const method = likeState ? "DELETE" : "PUT";
 
     return fetch(`${this.baseUrl}v1/${this.group}/cards/likes/${cardID}`, {

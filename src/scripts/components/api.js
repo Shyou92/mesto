@@ -5,6 +5,21 @@ export default class Api {
     this.token = token;
   }
 
+  getUserInfo() {
+    return fetch(`${this.baseUrl}v1/${this.group}/users/me`, {
+      headers: {
+        authorization: this.token,
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Error ${res.status} - ${res.statusText}`);
+      }
+    });
+  }
+
   getCards() {
     return fetch(`${this.baseUrl}v1/${this.group}/cards`, {
       headers: {

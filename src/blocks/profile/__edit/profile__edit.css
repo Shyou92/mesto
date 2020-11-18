@@ -25,3 +25,15 @@
   transition: 1s;
   border: hidden;
 }
+
+@media screen and (max-width: 929px) {
+  .profile__edit {
+    top: 164px;
+  }
+}
+
+@media screen and (max-width: 424px) {
+  .profile__edit {
+    top: 137px;
+  }
+}

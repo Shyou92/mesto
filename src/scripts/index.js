@@ -1,4 +1,4 @@
-import "../pages/index.css";
+import '../pages/index.css';
 import {
   popupOpen,
   cardElements,
@@ -15,21 +15,21 @@ import {
   imagePopup,
   editUserInfo,
   popupCreateCard,
-} from "./utils/constants.js";
-import { isLoading, isLoaded } from "./utils/utils.js";
-import { Card } from "./components/card.js";
-import { FormValidator } from "./components/formValidator.js";
-import PopupWithForm from "./components/popupWithForm.js";
-import PopupWithImage from "./components/popupWithImage.js";
-import Section from "./components/section.js";
-import UserInfo from "./components/userInfo.js";
-import Api from "./components/api.js";
-import PopupConfirm from "./components/popupConfirm.js";
+} from './utils/constants.js';
+import { isLoading, isLoaded } from './utils/utils.js';
+import { Card } from './components/card.js';
+import { FormValidator } from './components/formValidator.js';
+import PopupWithForm from './components/popupWithForm.js';
+import PopupWithImage from './components/popupWithImage.js';
+import Section from './components/section.js';
+import UserInfo from './components/userInfo.js';
+import Api from './components/api.js';
+import PopupConfirm from './components/popupConfirm.js';
 
 const api = new Api(
-  "https://mesto.nomoreparties.co/",
-  "cohort-17",
-  "a3d68f30-ff26-46e5-95a8-5a60641ab807"
+  'https://mesto.nomoreparties.co/',
+  'cohort-17',
+  'a3d68f30-ff26-46e5-95a8-5a60641ab807'
 );
 
 let myUserId;
@@ -55,7 +55,7 @@ const popupWithImg = new PopupWithImage(imagePopup, popupImageWithConfig);
 popupWithImg.setEventListeners();
 
 const editUserProfilePopup = new PopupWithForm(editUserInfo, (data) => {
-  isLoading(editUserInfo, "Сохранение...");
+  isLoading(editUserInfo, 'Сохранение...');
   api
     .setUserInfo(data)
     .then((info) => {
@@ -64,14 +64,14 @@ const editUserProfilePopup = new PopupWithForm(editUserInfo, (data) => {
     .catch((error) => console.log(error))
     .finally(() => {
       editUserProfilePopup.closePopup();
-      isLoaded(editUserInfo, "Сохранить");
+      isLoaded(editUserInfo, 'Сохранить');
     });
 });
 
 editUserProfilePopup.setEventListeners();
 
 const changeAvatarPopup = new PopupWithForm(profileEdit, (data) => {
-  isLoading(profileEdit, "Сохранение...");
+  isLoading(profileEdit, 'Сохранение...');
   api
     .setAvatar(data.update)
     .then(() => {
@@ -82,13 +82,13 @@ const changeAvatarPopup = new PopupWithForm(profileEdit, (data) => {
     })
     .finally(() => {
       changeAvatarPopup.closePopup();
-      isLoaded(profileEdit, "Сохранить");
+      isLoaded(profileEdit, 'Сохранить');
     });
 });
 
 changeAvatarPopup.setEventListeners();
 
-profileEditButton.addEventListener("click", () => {
+profileEditButton.addEventListener('click', () => {
   formEditAvatarValidator.clearValidation();
   changeAvatarPopup.openPopup();
 });
@@ -96,13 +96,13 @@ profileEditButton.addEventListener("click", () => {
 function renderCard(item) {
   return new Card({
     options: item,
-    template: ".element-template",
+    template: '.element-template',
     handleCardClick: popupWithImg.openPopup.bind(popupWithImg),
     myId: myUserId,
     handleDeleteCard: (card) => {
       popupConfirm.openPopup();
       popupConfirm.setSubmitCallback(() => {
-        isLoading(confirmPopup, "Удаление...");
+        isLoading(confirmPopup, 'Удаление...');
         api
           .deleteCard(card.id)
           .then(() => {
@@ -112,7 +112,7 @@ function renderCard(item) {
           .catch((error) => console.log(error))
           .finally(() => {
             popupConfirm.closePopup();
-            isLoaded(confirmPopup, "Удалить");
+            isLoaded(confirmPopup, 'Удалить');
           });
       });
     },
@@ -126,7 +126,7 @@ function renderCard(item) {
 }
 
 const createCardPopup = new PopupWithForm(popupCreateCard, (data) => {
-  isLoading(popupCreateCard, "Создание...");
+  isLoading(popupCreateCard, 'Создание...');
   api
     .addCard(data.name, data.link)
     .then((res) => {
@@ -137,18 +137,18 @@ const createCardPopup = new PopupWithForm(popupCreateCard, (data) => {
     .catch((error) => console.log(error))
     .finally(() => {
       createCardPopup.closePopup();
-      isLoaded(popupCreateCard, "Создать");
+      isLoaded(popupCreateCard, 'Создать');
     });
 });
 
 createCardPopup.setEventListeners();
 
-addButton.addEventListener("click", () => {
+addButton.addEventListener('click', () => {
   createCardPopup.openPopup();
   formCreateValidator.clearValidation();
 });
 
-popupOpen.addEventListener("click", () => {
+popupOpen.addEventListener('click', () => {
   editUserProfilePopup.openPopup();
   const userData = userInfo.getUserInfo();
   nameInput.value = userData.name;
